@@ -11,6 +11,7 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { wowen } from "~/helpers/chain";
 import Layout from "~/layouts/layout";
+import { createPublicClient, http } from "viem";
 
 // const { chains, publicClient } = configureChains(
 //   [mainnet, polygon, optimism, arbitrum],
@@ -26,7 +27,7 @@ const { chains, publicClient } = configureChains(
     jsonRpcProvider({
       rpc: (chain) => ({
         http: `https://api.wowen.io/nodes/rpc`,
-        webSocket: `wss://${chain.id}.example.com`,
+        webSocket: `wss://api.wowen.io/nodes/ws`,
       }),
     }),
   ],
@@ -41,7 +42,10 @@ const { connectors } = getDefaultWallets({
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient
+  publicClient: createPublicClient({
+    chain: wowen,
+    transport: http()
+  }),
 });
 
 const MyApp: AppType = ({ Component, pageProps }) => {

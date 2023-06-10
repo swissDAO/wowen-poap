@@ -1,11 +1,23 @@
 import { type NextPage } from "next";
 import { useForm } from "react-hook-form";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { wowen } from "~/helpers/chain";
+import ABI from "../resources/ABI.json";
 
 const Home: NextPage = () => {
   const { register, handleSubmit, formState: { isValid, errors } } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const { config } = usePrepareContractWrite({
+    address: '0x5Ac6011bb0fA63E47D6F225c024495e15a9B29CA',
+    chainId: wowen.id,
+    abi: ABI,
+    functionName: 'safeMint',
+  });
+
+  const { write } = useContractWrite(config);
+
+  const onSubmit = () => {
+    write?.();
   }
 
   return (
@@ -33,6 +45,14 @@ const Home: NextPage = () => {
               <div className="flex items-center">
                 <div className="flex justify-center w-full">
                   <p>Check Eligibility</p>
+                </div>
+              </div>
+            </button>
+
+            <button onClick={() => write?.()} className="align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="button">
+              <div className="flex items-center">
+                <div className="flex justify-center w-full">
+                  <p>Mint POAP</p>
                 </div>
               </div>
             </button>
