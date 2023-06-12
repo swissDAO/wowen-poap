@@ -25,12 +25,12 @@ contract WowenHackathonPoap is
         _safeMint(msg.sender, tokenId);
         _setTokenURI(
             tokenId,
-            string.concat(_baseURI(), Strings.toString(tokenId), ".png")
+            string.concat(
+                "https://api.wowen.io/manager/static/nft/hackathon/",
+                Strings.toString(tokenId),
+                ".png"
+            )
         );
-    }
-
-    function _baseURI() internal pure override returns (string memory) {
-        return "https://api.wowen.io/manager/static/nft/hackathon/";
     }
 
     // The following functions are overrides required by Solidity.
