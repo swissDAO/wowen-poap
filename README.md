@@ -1,3 +1,3 @@
 # WOWEN Hackathon POAP Minter
 
-Deployed to wowen: 0xd9145CCE52D386f254917e481eB44e9943F39138
+Deployed to wowen: 0xD021Dc36dC1306DBbb2bdB1Acc9C23F2df0eAC9c

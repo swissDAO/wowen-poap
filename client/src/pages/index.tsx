@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const { register, handleSubmit, formState: { isValid, errors } } = useForm({ mode: 'onBlur' });
 
   const { config } = usePrepareContractWrite({
-    address: '0xd9145CCE52D386f254917e481eB44e9943F39138',
+    address: '0xD021Dc36dC1306DBbb2bdB1Acc9C23F2df0eAC9c',
     chainId: wowen.id,
     abi: ABI,
     functionName: 'safeMint',

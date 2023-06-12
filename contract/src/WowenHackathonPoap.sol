@@ -20,8 +20,8 @@ contract WowenHackathonPoap is
     constructor() ERC721("WowenHackathonPoap", "WHAP") {}
 
     function safeMint() public onlyOwner {
-        uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+        uint256 tokenId = _tokenIdCounter.current();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(
             tokenId,
