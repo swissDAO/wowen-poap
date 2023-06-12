@@ -7,25 +7,17 @@ import {
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
+import { createPublicClient, http } from "viem";
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { wowen } from "~/helpers/chain";
 import Layout from "~/layouts/layout";
-import { createPublicClient, http } from "viem";
 
-// const { chains, publicClient } = configureChains(
-//   [mainnet, polygon, optimism, arbitrum],
-//   [
-//     alchemyProvider({ apiKey: process.env.ALCHEMY_ID! }),
-//     publicProvider()
-//   ]
-// );
-
-const { chains, publicClient } = configureChains(
+const { chains } = configureChains(
   [wowen],
   [
     jsonRpcProvider({
-      rpc: (chain) => ({
+      rpc: () => ({
         http: `https://api.wowen.io/nodes/rpc`,
         webSocket: `wss://api.wowen.io/nodes/ws`,
       }),
