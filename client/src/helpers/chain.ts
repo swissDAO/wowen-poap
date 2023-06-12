@@ -1,4 +1,4 @@
-import { Chain } from 'wagmi'
+import { type Chain } from 'wagmi'
 
 export const wowen = {
   id: 981,
@@ -14,7 +14,7 @@ export const wowen = {
     default: { http: ['https://api.wowen.io/nodes/rpc'] },
   },
   blockExplorers: {
-    etherscan: { name: 'SnowTrace', url: 'https://www.wowen.io/explorer' },
-    default: { name: 'SnowTrace', url: 'https://www.wowen.io/explorer' },
+    etherscan: { name: 'Wowen Explorer', url: 'https://www.wowen.io/explorer' },
+    default: { name: 'Wowen Explorer', url: 'https://www.wowen.io/explorer' },
   },
 } as const satisfies Chain

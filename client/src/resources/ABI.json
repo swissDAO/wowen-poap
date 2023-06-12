@@ -131,18 +131,7 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "uri",
-        "type": "string"
-      }
-    ],
+    "inputs": [],
     "name": "safeMint",
     "outputs": [],
     "stateMutability": "nonpayable",
