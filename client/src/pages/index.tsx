@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import { Toaster, toast } from "sonner";
+import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import { CONTRACT_CONFIG } from "~/helpers/contract";
 
 type EmailFormData = {
@@ -14,10 +15,16 @@ const Home: NextPage = () => {
     ...CONTRACT_CONFIG,
     functionName: 'safeMint',
   });
-  const { write } = useContractWrite(config);
+  const contractWrite = useContractWrite(config);
+
+  useWaitForTransaction({
+    hash: contractWrite.data?.hash,
+    onSuccess: () => toast.success('POAP has been minted!')
+  });
 
   const onSubmit: SubmitHandler<EmailFormData> = () => {
-    write?.();
+    contractWrite.write?.();
+    toast.success('POAP is minting!')
   }
 
   return (
@@ -56,6 +63,8 @@ const Home: NextPage = () => {
           </form>
         </div>
       </div>
+
+      <Toaster richColors />
     </>
   );
 };
