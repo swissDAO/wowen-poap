@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
-import { type SubmitHandler, useForm } from "react-hook-form";
-import { useContractRead, useContractReads, useContractWrite, usePrepareContractWrite, type Address } from "wagmi";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useContractRead, useContractReads, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { CONTRACT_CONFIG } from "~/helpers/contract";
 import { useIsMounted } from '../hooks/useIsMounted';
-import ABI from "../resources/ABI.json";
 
 type EmailFormData = {
   email: string;
@@ -12,25 +12,20 @@ const Home: NextPage = () => {
   const isMounted = useIsMounted();
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<EmailFormData>({ mode: 'onBlur' });
 
-  const contractConfig = {
-    address: '0x0f88ed2ECD8C851Fa7bfc1D72E723c65a41eD652' as Address,
-    abi: ABI,
-  };
-
   const { config } = usePrepareContractWrite({
-    ...contractConfig,
+    ...CONTRACT_CONFIG,
     functionName: 'safeMint',
   });
   const { write } = useContractWrite(config);
 
   const totalSupply = useContractRead({
-    ...contractConfig,
+    ...CONTRACT_CONFIG,
     functionName: 'totalSupply',
   })
 
   const poaps = useContractReads({
     contracts: [...Array(Number(totalSupply.data) || 0).keys()].map((_, i) => ({
-      ...contractConfig,
+      ...CONTRACT_CONFIG,
       functionName: 'tokenURI',
       args: [i += 1]
     } as never))
