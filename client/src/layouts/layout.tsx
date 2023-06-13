@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <>
       <nav className="block w-full px-8 shadow-md backdrop-saturate-200 backdrop-blur-2xl sticky top-0 z-10 py-5 lg:px-16 lg:py-7 max-w-full bg-wowen bg-opacity-100 text-rtm-white font-semibold rounded-none">
         <div className="relative w-auto h-fit flex items-center">
-          <a className="hidden lg:block cursor-pointer active" href="" aria-current="page">
+          <a className="hidden lg:block cursor-pointer active" href="/" aria-current="page">
             <img src="https://www.wowen.io/static/media/Wowen_white.bc50c8aa3083ed679764922c2aa5fc26.svg" className="h-fit" alt="Wowen Logo" />
           </a>
 
@@ -21,14 +21,6 @@ export default function Layout({ children }: { children: ReactNode }) {
             </button>
           </div>
           <div className="flex items-center float-right ml-auto">
-            {/* <button className="align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none py-3 px-6 text-white shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-center rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none h-full text-base font-semibold w-fit bg-rtm-green-400 border-2 border-rtm-green-300 mr-4" type="button">
-          <div className="flex items-center">
-            <div className="flex justify-center w-full">
-              <p>Learn more</p>
-            </div>
-          </div>
-        </button> */}
-
             <CustomConnectButton />
           </div>
         </div>

@@ -1,15 +1,13 @@
 import { type NextPage } from "next";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useContractRead, useContractReads, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { CONTRACT_CONFIG } from "~/helpers/contract";
-import { useIsMounted } from '../hooks/useIsMounted';
 
 type EmailFormData = {
   email: string;
 };
 
 const Home: NextPage = () => {
-  const isMounted = useIsMounted();
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<EmailFormData>({ mode: 'onBlur' });
 
   const { config } = usePrepareContractWrite({
@@ -17,19 +15,6 @@ const Home: NextPage = () => {
     functionName: 'safeMint',
   });
   const { write } = useContractWrite(config);
-
-  const totalSupply = useContractRead({
-    ...CONTRACT_CONFIG,
-    functionName: 'totalSupply',
-  })
-
-  const poaps = useContractReads({
-    contracts: [...Array(Number(totalSupply.data) || 0).keys()].map((_, i) => ({
-      ...CONTRACT_CONFIG,
-      functionName: 'tokenURI',
-      args: [i += 1]
-    } as never))
-  });
 
   const onSubmit: SubmitHandler<EmailFormData> = () => {
     write?.();
@@ -47,7 +32,11 @@ const Home: NextPage = () => {
                 value: /[^\s@]+@[^\s@]+\.[^\s@]+/gi,
                 message: 'Please provide a valid email.',
               },
-            })} type="email" placeholder="Enter your email address" className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-blue-500 !border-rtm-black-100 !border-t-rtm-black-100 text-base !text-rtm-green-400 focus:!border-rtm-green-400 focus:!border-t-rtm-green-400" />
+            })}
+              type="email"
+              placeholder="Enter your email address"
+              className="peer w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-blue-500 !border-rtm-black-100 !border-t-rtm-black-100 text-base !text-rtm-green-400 focus:!border-rtm-green-400 focus:!border-t-rtm-green-400"
+            />
 
             {errors.email?.type === 'required' && <span>This field is required</span>}
 
@@ -65,12 +54,6 @@ const Home: NextPage = () => {
               </div>
             </button>
           </form>
-        </div>
-
-        <div style={{ maxHeight: '500px' }}>
-          {isMounted && poaps?.data?.map((poap, i) => (
-            <img key={i} src={String(poap.result)} alt="" height={300} width={300} />
-          ))}
         </div>
       </div>
     </>
