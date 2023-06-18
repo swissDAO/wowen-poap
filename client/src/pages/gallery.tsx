@@ -19,9 +19,9 @@ export default function Gallery() {
   });
 
   return (
-    <div style={{ maxHeight: '500px' }}>
+    <div className="grid grid-cols-3 gap-6">
       {isMounted && poaps?.data?.map((poap, i) => (
-        <img key={i} src={String(poap.result)} alt="" height={300} width={300} />
+        <img key={i} src={String(poap.result)} className="rounded-lg" alt="" height={300} width={300} />
       ))}
     </div>
   );
