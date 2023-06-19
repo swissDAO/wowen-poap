@@ -19,10 +19,12 @@ export default function Gallery() {
   });
 
   return (
-    <div className="grid grid-cols-3 gap-6">
-      {isMounted && poaps?.data?.map((poap, i) => (
-        <img key={i} src={String(poap.result)} className="rounded-lg" alt="" height={300} width={300} />
-      ))}
+    <div className="flex justify-center items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-24 py-32">
+        {isMounted && poaps?.data?.map((poap, i) => (
+          <img key={i} src={String(poap.result)} className="rounded-lg" alt="" height={300} width={300} />
+        ))}
+      </div>
     </div>
   );
 }

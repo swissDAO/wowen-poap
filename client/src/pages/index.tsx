@@ -53,7 +53,7 @@ const Home: NextPage = () => {
               </span>
             )}
 
-            <button disabled={!isValid} className="align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="submit">
+            <button disabled={!isValid} className="mt-4 align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="submit">
               <div className="flex items-center">
                 <div className="flex justify-center w-full">
                   <p>Check Eligibility</p>
