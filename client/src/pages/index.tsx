@@ -1,7 +1,8 @@
 import { type NextPage } from "next";
+import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Toaster, toast } from "sonner";
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 import { CONTRACT_CONFIG } from "~/helpers/contract";
 
 type EmailFormData = {
@@ -9,6 +10,10 @@ type EmailFormData = {
 };
 
 const Home: NextPage = () => {
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+
+  const { isConnected } = useAccount();
+
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<EmailFormData>({ mode: 'onBlur' });
 
   const { config } = usePrepareContractWrite({
@@ -26,6 +31,11 @@ const Home: NextPage = () => {
     contractWrite.write?.();
     toast.success('POAP is minting!')
   }
+
+  useEffect(() => {
+    if (!isConnected) toast('Please connect your Wallet!')
+    setIsWalletConnected(isConnected);
+  }, [isConnected])
 
   return (
     <>
@@ -53,7 +63,7 @@ const Home: NextPage = () => {
               </span>
             )}
 
-            <button disabled={!isValid} className="mt-4 align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="submit">
+            <button disabled={!(isValid && isWalletConnected)} className="mt-4 align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="submit">
               <div className="flex items-center">
                 <div className="flex justify-center w-full">
                   <p>Check Eligibility</p>
