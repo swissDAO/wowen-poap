@@ -4,14 +4,12 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract WowenHackathonPoap is
     ERC721,
     ERC721Enumerable,
-    ERC721URIStorage,
-    Ownable
+    ERC721URIStorage
 {
     using Counters for Counters.Counter;
 
@@ -19,7 +17,7 @@ contract WowenHackathonPoap is
 
     constructor() ERC721("WowenHackathonPoap", "WHAP") {}
 
-    function safeMint() public onlyOwner {
+    function safeMint() external {
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(msg.sender, tokenId);
