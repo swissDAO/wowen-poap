@@ -9,7 +9,20 @@ type EmailFormData = {
   email: string;
 };
 
-const Home: NextPage = () => {
+type Props = {
+  attendees: { emails: string[] };
+}
+
+export function getStaticProps() {
+  return {
+    props: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      attendees: JSON.parse(`{"emails": ${process.env.NEXT_PUBLIC_EMAILS!}}`) as string[],
+    },
+  }
+}
+
+const Home: NextPage<Props> = ({ attendees }: Props) => {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
 
   const { isConnected } = useAccount();
@@ -27,13 +40,18 @@ const Home: NextPage = () => {
     onSuccess: () => toast.success('POAP has been minted!')
   });
 
-  const onSubmit: SubmitHandler<EmailFormData> = () => {
+  const onSubmit: SubmitHandler<EmailFormData> = ({ email }: EmailFormData) => {
+    if (!attendees.emails.includes(email)) {
+      toast('You are not eligable to mint!');
+      return;
+    }
+
     contractWrite.write?.();
     toast.success('POAP is minting!')
   }
 
   useEffect(() => {
-    if (!isConnected) toast('Please connect your Wallet!')
+    if (!isConnected) toast('Please connect your Wallet!');
     setIsWalletConnected(isConnected);
   }, [isConnected])
 
@@ -66,7 +84,7 @@ const Home: NextPage = () => {
             <button disabled={!(isValid && isWalletConnected)} className="mt-4 align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none py-4 text-white bg-wowen w-full" type="submit">
               <div className="flex items-center">
                 <div className="flex justify-center w-full">
-                  <p>Check Eligibility</p>
+                  <p>Mint</p>
                 </div>
               </div>
             </button>
