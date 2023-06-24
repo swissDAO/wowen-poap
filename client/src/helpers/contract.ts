@@ -2,6 +2,6 @@ import { type Address } from "viem";
 import ABI from "../resources/ABI.json";
 
 export const CONTRACT_CONFIG = {
-  address: '0x0f88ed2ECD8C851Fa7bfc1D72E723c65a41eD652' as Address,
+  address: '0xe79e8B1cbDe1c15e231C272e0021D35f3b094d20' as Address,
   abi: ABI,
 };
