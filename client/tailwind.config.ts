@@ -5,6 +5,7 @@ export default {
   theme: {
     colors: {
       wowen: '#2B3D00',
+      highlight: '#D8FE4D',
       white: '#FFFFFF',
     },
     extend: {},

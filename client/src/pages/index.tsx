@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Toaster, toast } from "sonner";
@@ -59,6 +60,16 @@ const Home: NextPage<Props> = ({ attendees }: Props) => {
     <>
       <div className="h-screen w-screen flex flex-col justify-center items-center">
         <div className="w-1/3 p-4 md:p-8 rounded-2xl border border-rtm-black-100">
+          <div className="p-4 mb-4 text-sm">
+            <div>
+              <span className="font-medium">Ensure that these requirements are met:</span>
+              <ul className="mt-1.5 ml-4 list-disc list-inside">
+                <li><Link className="hover:text-highlight" href="https://www.wowen.io/home/" target="_blank">You have a managed wowen address</Link></li>
+                <li><Link className="hover:text-highlight" href="https://www.wowen.io/home/faucet" target="_blank">You have wowen test tokens WOWn</Link></li>
+              </ul>
+            </div>
+          </div>
+
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("email", {
