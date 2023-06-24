@@ -64,8 +64,8 @@ const Home: NextPage<Props> = ({ attendees }: Props) => {
             <div>
               <span className="font-medium">Ensure that these requirements are met:</span>
               <ul className="mt-1.5 ml-4 list-disc list-inside">
-                <li><Link className="hover:text-highlight" href="https://www.wowen.io/home/" target="_blank">You have a managed wowen address</Link></li>
-                <li><Link className="hover:text-highlight" href="https://www.wowen.io/home/faucet" target="_blank">You have wowen test tokens WOWn</Link></li>
+                <li><Link className="underline hover:text-highlight" href="https://www.wowen.io/home/" target="_blank">You have a managed wowen address</Link></li>
+                <li><Link className="underline hover:text-highlight" href="https://www.wowen.io/home/faucet" target="_blank">You have wowen test tokens WOWn</Link></li>
               </ul>
             </div>
           </div>
